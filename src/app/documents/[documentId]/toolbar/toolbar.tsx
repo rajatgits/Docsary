@@ -12,6 +12,7 @@ import {
   Redo2Icon,
   RemoveFormattingIcon,
   SpellCheckIcon,
+  StrikethroughIcon,
   UnderlineIcon,
   Undo2Icon,
 } from "lucide-react";
@@ -83,6 +84,12 @@ export const Toolbar = () => {
         icon: UnderlineIcon,
         isActive: editor?.isActive("underline"),
         onClick: () => editor?.chain().focus().toggleUnderline().run(),
+      },
+      {
+        label: "Strikethrough",
+        icon: StrikethroughIcon,
+        isActive: editor?.isActive("strikethrough"),
+        onClick: () => editor?.chain().focus().toggleStrike().run(),
       },
     ],
     [
