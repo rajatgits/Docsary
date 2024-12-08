@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Navbar } from "./navbar";
+import { TemplatesGallery } from "./templates-gallery";
 
 export const Home = () => {
   return (
@@ -8,8 +8,7 @@ export const Home = () => {
         <Navbar />
       </div>
       <div className="mt-16">
-        Rajat Raj
-        <Link href="/documents/123">Click</Link>
+        <TemplatesGallery />
       </div>
     </div>
   );
