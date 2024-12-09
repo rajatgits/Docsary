@@ -1,24 +1,20 @@
-import { Editor } from "./editor";
-import { Navbar } from "./navbar";
-import { Toolbar } from "./toolbar/toolbar";
+import { preloadQuery } from "convex/nextjs";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { Document } from "./document";
+import { api } from "../../../../convex/_generated/api";
 
-interface DocumentIdPageProps {
-  params: Promise<{ documentId: string }>;
+interface DocumentIdProps {
+  params: Promise<{ documentId: Id<"documents"> }>;
 }
 
-const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
+const DocumentIdPage = async ({ params }: DocumentIdProps) => {
   const { documentId } = await params;
-  return (
-    <div className="min-h-screen bg-[#FAFBFD]">
-      <div className="flex flex-col px-5 pt-2 gap-y-1 fixed top-0 left-0 right-0 z-10 bg-[#FAFBFD] print:hidden">
-        <Navbar />
-        <Toolbar />
-      </div>
-      <div className="pt-[114px] print:pt-0">
-        <Editor />
-      </div>
-    </div>
-  );
+
+  const preloadedDocument = await preloadQuery(api.documents.getById, {
+    id: documentId,
+  });
+
+  return <Document preloadedDocument={preloadedDocument} />;
 };
 
 export default DocumentIdPage;

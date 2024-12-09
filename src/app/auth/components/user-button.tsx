@@ -4,7 +4,10 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "../api/use-current-user";
@@ -28,20 +31,32 @@ export const UserButton = () => {
   const avatarFallback = email!.charAt(0).toUpperCase();
 
   return (
-    <DropdownMenu modal={false}>
+    <DropdownMenu>
       <DropdownMenuTrigger className="outline-none relative">
-        <Avatar className="rounded-full size-10 hover:opacity-60 transition">
+        <Avatar className="rounded-full size-10">
           <AvatarImage alt={name} src={image} />
           <AvatarFallback className=" font-medium bg-emerald-600">
             {avatarFallback}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="center" side="right" className="w-60">
-        <DropdownMenuItem onClick={() => signOut()} className="h-10">
-          <LogOut className="size-3 mr-2" />
-          Log out
-        </DropdownMenuItem>
+
+      <DropdownMenuContent className="w-60 absolute -right-3">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>{name}</DropdownMenuItem>
+          <DropdownMenuItem className="text-sm text-muted-foreground truncate">
+            {email}
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => signOut()} className="h-10">
+            <LogOut className="size-3 mr-2" />
+            Log out
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

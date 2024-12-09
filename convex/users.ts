@@ -2,13 +2,14 @@ import { query } from "./_generated/server";
 import { auth } from "./auth";
 
 export const current = query({
+  args: {},
   handler: async (ctx) => {
-    const user = await auth.getUserId(ctx);
+    const userId = await auth.getUserId(ctx);
 
-    if (user === null) {
+    if (userId === null) {
       return null;
     }
 
-    return await ctx.db.get(user);
+    return await ctx.db.get(userId);
   },
 });

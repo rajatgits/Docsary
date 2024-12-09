@@ -6,23 +6,14 @@ import { DocumentsTable } from "./documents-table";
 import { useSearchParam } from "@/hooks/use-search-param";
 import { usePaginatedQuery } from "convex/react";
 import { Navbar } from "./navbar";
-import { FullsreenLoader } from "@/components/fullscreen-loader";
 
-export default function Home() {
+export const Documents = () => {
   const [search] = useSearchParam();
   const { results, status, loadMore } = usePaginatedQuery(
     api.documents.get,
     { search },
     { initialNumItems: 5 }
   );
-
-  if (status === "LoadingFirstPage") {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#2B579A]">
-        <FullsreenLoader label="Documents loading..." />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -39,4 +30,4 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};

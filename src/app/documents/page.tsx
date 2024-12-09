@@ -1,5 +1,5 @@
 const DocumentPage = () => {
-  return <div>Document Page</div>;
+  return <div className="min-h-screen flex flex-col">Rajat Raj</div>;
 };
 
 export default DocumentPage;
