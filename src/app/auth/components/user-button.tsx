@@ -13,6 +13,7 @@ import {
 import { useCurrentUser } from "../api/use-current-user";
 import { Loader, LogOut } from "lucide-react";
 import { useAuthActions } from "@convex-dev/auth/react";
+import { toast } from "sonner";
 
 export const UserButton = () => {
   const { signOut } = useAuthActions();
@@ -52,7 +53,10 @@ export const UserButton = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => signOut()} className="h-10">
+          <DropdownMenuItem
+            onClick={() => signOut().then(() => toast.success("Logged out"))}
+            className="h-10"
+          >
             <LogOut className="size-3 mr-2" />
             Log out
           </DropdownMenuItem>

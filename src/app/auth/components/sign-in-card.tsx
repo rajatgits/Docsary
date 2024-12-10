@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { TriangleAlert } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 interface SignInCardProps {
   setState: (state: SignInFlow) => void;
@@ -33,6 +34,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
 
     setPending(true);
     signIn("password", { email, password, flow: "signIn" })
+      .then(() => toast.success("Logged in"))
       .catch(() => {
         setError("Invalid email or password");
       })
@@ -43,9 +45,11 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
 
   const onProviderSignIn = (value: "github" | "google") => {
     setPending(true);
-    signIn(value).finally(() => {
-      setPending(false);
-    });
+    signIn(value)
+      .then(() => toast.success("Logged in"))
+      .finally(() => {
+        setPending(false);
+      });
   };
 
   return (
