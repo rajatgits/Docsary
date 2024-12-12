@@ -36,12 +36,6 @@ export const get = query({
     search: v.optional(v.string()),
   },
   handler: async (ctx, { search, paginationOpts }) => {
-    const user = await ctx.auth.getUserIdentity();
-
-    if (!user) {
-      throw new ConvexError("Unauthorized");
-    }
-
     const userId = await auth.getUserId(ctx);
 
     if (!userId) {
@@ -52,7 +46,7 @@ export const get = query({
       return await ctx.db
         .query("documents")
         .withSearchIndex("search_title", (q) =>
-          q.search("title", search).eq("ownerId", user.subject)
+          q.search("title", search).eq("userId", userId)
         )
         .paginate(paginationOpts);
     }
