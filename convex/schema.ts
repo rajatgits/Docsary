@@ -7,14 +7,12 @@ const schema = defineSchema({
   documents: defineTable({
     userId: v.id("users"),
     title: v.string(),
-    ownerId: v.string(),
     initialContent: v.optional(v.string()),
   })
     .index("by_user_id", ["userId"])
-    .index("by_owner_id", ["ownerId"])
     .searchIndex("search_title", {
       searchField: "title",
-      filterFields: ["ownerId", "userId"],
+      filterFields: ["userId"],
     }),
 });
 
